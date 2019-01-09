@@ -1,0 +1,9 @@
+{
+	"oauth": {
+		"api_key": "d4d98e405d63247dcec028cd4dcd9cb6",
+		"client_secret": "f66259562059bedddee7851c2f49cee5",
+		"redirect_uri":"https://shopify.vteamslabs.com:3002/access_token",
+		"scope": "read_themes,write_themes,write_customers,read_script_tags,write_script_tags,read_products,write_products"
+	},
+	"app_url": "https://shopify.vteamslabs.com:3002/"
+}

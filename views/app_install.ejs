@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title><%= title %></title>
+	</head>
+	
+	<nav>
+    <div class="nav-wrapper black">
+      <span href="#" class="brand-logo center">Install the Vat app!</span>
+    </div>
+  </nav>
+
+		
+	<div class="row" style="margin-top: 10%; margin-left: 10%;">
+			<form action="/shopify_auth" method="GET" class="col s12">
+				<div class="row">
+					<div class="input-field col s3">
+						<input id="icon_prefix" type="text" class="validate" name="shop">
+						<label for="icon_prefix"> (Enter Shop Name Here)*.myshopify.com </label>
+					</div>
+					<div class="input-field col s2" style="top: 10px;">
+							<button class="btn waves-effect waves-light" type="submit" name="action">Submit		
+								</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+<!-- 
+    <form action="/shopify_auth" method="GET">
+		  <div class="row">
+		    <div class="large-4 large-offset-4 columns">
+		      <div class="row collapse">
+		        <label>Input Label</label>
+		        <div class="small-6 columns">
+		          <input type="text" placeholder="shopname" name="shop" />
+		        </div>
+		        <div class="small-6 columns">
+		          <span class="postfix">.myshopify.com</span>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="large-4 large-offset-4 columns">
+		    	<button type="submit" class="button">Submit</button>
+		    </div>
+			</div>
+		</form> -->
+  </body>
+</html>
+

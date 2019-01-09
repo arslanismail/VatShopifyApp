@@ -1,0 +1,91 @@
+
+<h1>
+    Customize Header and Product Price Snippet with the following code to make it work properly
+</h1>
+<h2>Note :This extension is only supported for Debut Themes and Themes That are Inherited By Debut Theme</h2>
+
+<p>Add the Following Code to Header.liquid (Under Sections in your theme files)</p>
+<xmp>
+    
+    <p style="display:none;" id="commerce-vat-tax-rate">{{shop.metafields.commerce_plugin.vat}}</p>
+    <p style="display:hidden;" id="commerce-vat-store-currency">{{shop.metafields.commerce_plugin.vat-currency}}</p>
+
+</xmp>
+
+</br>
+</br>
+<h2>you need to replace these two more divs in Product.price.Snippet</h2>
+
+    
+    <h3>price__regular DIV Should be Replaced By this</h3>
+
+<xmp>
+    <div class="price__regular">
+        <dt>
+          <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
+        </dt>
+        <dd>
+          <span class="nxb-exvat price-item price-item--regular" data-regular-price>
+            {% if available %}
+              {% if compare_at_price > price %}
+              Exc-Vat {{ compare_at_price | money }}
+              {% else %}
+              Exc-Vat {{ money_price }}
+              {% endif %}
+            {% else %}
+              {{ 'products.product.sold_out' | t }}
+            {% endif %}
+          </span>
+    
+          <span  style="display:none;" class="nxb-invat price-item price-item--regular" data-sale-price>
+    
+            {% if available %}
+                      {% if compare_at_price > price %}
+                        
+            {% assign price = compare_at_price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
+            {% assign render = compare_at_price | money_without_currency | strip_html | plus: price %}
+             Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }} 
+                      {% else %}
+                        
+            {% assign price = product.price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
+            {% assign render = product.price | money_without_currency | strip_html | plus: price %}
+            Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }}
+                      {% endif %}
+                    {% else %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+    
+    
+          </span>
+    
+        </dd>
+      </div>
+    </xmp>
+
+    <h3>price__sale DIV Should be Replaced By this</h3>
+    
+    <xmp>
+    <div class="price__sale">
+        <dt>
+          <span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t }}</span>
+        </dt>
+        <dd>
+          <span class="nxb-exvat price-item price-item--sale" data-sale-price>
+           Exc-Vat {{ money_price }}
+          </span>
+                
+          <span  style="display:none;" class="nxb-invat price-item price-item--sale " data-sale-price>
+    
+            {% assign price = product.price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
+            {% assign render = product.price | money_without_currency | strip_html | plus: price %}
+            Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }} 
+    
+          </span> 
+    
+           <span class="price-item__label" aria-hidden="true">{{ 'products.product.on_sale' | t }}</span>
+        </dd>
+      </div>
+    
+    </xmp>
+
+        

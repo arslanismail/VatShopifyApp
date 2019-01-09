@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<title><%= title %></title>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        
+	 
+       <link rel='stylesheet' href='/stylesheets/foundation.min.css' />
+	<link rel='stylesheet' href='/stylesheets/style.css' />	
+	
+	
+</head>
+<body>
+	<script type="text/javascript">
+	ShopifyApp.ready(function(){
+		ShopifyApp.Bar.loadingOff();
+		console.log('render new');
+	});
+	</script>
+
+	 
+	  <div class="row">
+	    <div class="large-6 columns">
+				<h1><%= title %></h1>
+				
+	      <div class="row collapse">
+	       	<div class="small-12 columns">
+	          <a href="/integrate">Click TO Start Integration</a>
+	        </div> 
+	      </div>
+	    </div>
+	  </div>
+</body>
+</html>
