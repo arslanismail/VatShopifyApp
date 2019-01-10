@@ -1,34 +1,30 @@
 <!DOCTYPE html>
 <html>
-<title><%= title %></title>
 <head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        
-	 
-       <link rel='stylesheet' href='/stylesheets/foundation.min.css' />
-	<link rel='stylesheet' href='/stylesheets/style.css' />	
 	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<link rel='stylesheet' href='/stylesheets/foundation.min.css' />
+	<link rel='stylesheet' href='/stylesheets/style.css' />
 	
 </head>
 <body>
-	<script type="text/javascript">
-	ShopifyApp.ready(function(){
-		ShopifyApp.Bar.loadingOff();
-		console.log('render new');
-	});
-	</script>
+	
 
-	 
-	  <div class="row">
-	    <div class="large-6 columns">
-				<h1><%= title %></h1>
-				
-	      <div class="row collapse">
-	       	<div class="small-12 columns">
-	          <a href="/integrate">Click TO Start Integration</a>
-	        </div> 
-	      </div>
-	    </div>
-	  </div>
+
+<div class="panel callout radius">
+		<h3 class="text-center">Integration Process will take care of the following things</h3>
+		<p>* App will Access Your Store Database and Add Some fields as they are required for app to work properly</p>
+		<p>* Once Integrated You Will be Redirected to Screen with Some Code Snippets you need to add that from your theme editor</p>
+		<p>* You can Contact Our Support Team our support team will integrate the App for you(Free) in case of any issue </p>
+
+		<div class="text-right">
+		<a href="/integrate" class="button large text-right">Integrate App</a>
+	   </div>
+
+</div>
+
+	
 </body>
 </html>
+

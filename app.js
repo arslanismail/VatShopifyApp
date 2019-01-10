@@ -153,7 +153,7 @@ app.get('/', function(req, res) {
     if (req.session.access_token) {
           
           request.get({
-          url: 'https://' + req.session.shop + '.myshopify.com/admin/script_tags.json',
+          url: 'https://' + req.session.shop + '/admin/script_tags.json',
           headers: {
                 'X-Shopify-Access-Token': req.session.access_token
             }
@@ -191,7 +191,7 @@ app.get('/', function(req, res) {
 // app.get('/scripts', function(req, res) {
     
 //     request.post({
-//         url: 'https://' + req.session.shop + '.myshopify.com/admin/script_tags.json',
+//         url: 'https://' + req.session.shop + '/admin/script_tags.json',
 //         json: {
 //             "script_tag": {
 //               "event":"onload",
@@ -214,7 +214,7 @@ app.get('/integrate',function(req,res){
   var CountryArray=[];
   var getTax;
    request.get({
-       url: 'https://' + req.session.shop + '.myshopify.com/admin/shop.json',
+       url: 'https://' + req.session.shop + '/admin/shop.json',
        headers: {
        'X-Shopify-Access-Token': req.session.access_token
             }
@@ -229,7 +229,7 @@ app.get('/integrate',function(req,res){
 
 
     request.post({
-        url: 'https://' + req.session.shop + '.myshopify.com/admin/metafields.json',
+        url: 'https://' + req.session.shop + '/admin/metafields.json',
         json:{
             "metafield": {
               "namespace": "commerce_plugin",
@@ -253,7 +253,7 @@ app.get('/integrate',function(req,res){
 });
 
  request.get({
-    url: 'https://' + req.session.shop + '.myshopify.com/admin/countries.json',
+    url: 'https://' + req.session.shop + '/admin/countries.json',
     headers: {
     'X-Shopify-Access-Token': req.session.access_token
          }
@@ -267,7 +267,7 @@ app.get('/integrate',function(req,res){
 
       getTax= body.countries[0].tax;
       request.post({
-        url: 'https://' + req.session.shop + '.myshopify.com/admin/metafields.json',
+        url: 'https://' + req.session.shop + '/admin/metafields.json',
         json:{
             "metafield": {
               "namespace": "commerce_plugin",
@@ -286,7 +286,7 @@ app.get('/integrate',function(req,res){
         
         
         request.post({
-            url: 'https://' + req.session.shop + '.myshopify.com/admin/script_tags.json',
+            url: 'https://' + req.session.shop + '/admin/script_tags.json',
             json: {
                 "script_tag": {
                   "event":"onload",

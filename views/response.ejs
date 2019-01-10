@@ -1,91 +1,184 @@
 
-<h1>
-    Customize Header and Product Price Snippet with the following code to make it work properly
-</h1>
-<h2>Note :This extension is only supported for Debut Themes and Themes That are Inherited By Debut Theme</h2>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+     <link rel='stylesheet' href='/stylesheets/foundation.min.css' />
+	<link rel='stylesheet' href='/stylesheets/style.css' />  
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+</head>
+<style>
+pre {
+    padding: 5px;
+    border: 1px solid #b3aaaa;
+}
+</style>
 
-<p>Add the Following Code to Header.liquid (Under Sections in your theme files)</p>
-<xmp>
+<nav>
+    <div class="nav-wrapper black center">
+      <span style="font-size: 25px;" href="#" class="center">Customize Header and Product Price Snippet with the following code to make App Work</span>
+    </div>
+  </nav>
+</br>
+
+
+<div class="row">
+<div class="small-12 small-centered columns">
+
+
+
+<h5 class="center">Add the Following Code to Header.liquid (Under Sections Folder in your theme Editor as sections/header.liquid)</h5>
+
+<pre><code class="html">
+
+    &lt;p style="display:none;" id="commerce-vat-tax-rate"&gt;{{shop.metafields.commerce_plugin.vat}}&lt;/p&gt;
+    <br/>
+    &lt;p style="display:none;" id="commerce-vat-store-currency"&gt;{{shop.metafields.commerce_plugin.vat-currency}}&lt;/p&gt;
     
-    <p style="display:none;" id="commerce-vat-tax-rate">{{shop.metafields.commerce_plugin.vat}}</p>
-    <p style="display:hidden;" id="commerce-vat-store-currency">{{shop.metafields.commerce_plugin.vat-currency}}</p>
-
-</xmp>
-
+    </code></pre>
+  
 </br>
 </br>
-<h2>you need to replace these two more divs in Product.price.Snippet</h2>
+
+<h4 class="left-align">You need to replace these two more divs in Product-price.liquid (snippets/Product-price.liquid)</h4>
 
     
-    <h3>price__regular DIV Should be Replaced By this</h3>
+    <h5 class="center">price__regular DIV Should be Replaced By this</h5>
 
-<xmp>
-    <div class="price__regular">
-        <dt>
-          <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
-        </dt>
-        <dd>
-          <span class="nxb-exvat price-item price-item--regular" data-regular-price>
-            {% if available %}
-              {% if compare_at_price > price %}
-              Exc-Vat {{ compare_at_price | money }}
-              {% else %}
-              Exc-Vat {{ money_price }}
-              {% endif %}
-            {% else %}
-              {{ 'products.product.sold_out' | t }}
-            {% endif %}
-          </span>
-    
-          <span  style="display:none;" class="nxb-invat price-item price-item--regular" data-sale-price>
-    
-            {% if available %}
-                      {% if compare_at_price > price %}
-                        
-            {% assign price = compare_at_price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
-            {% assign render = compare_at_price | money_without_currency | strip_html | plus: price %}
-             Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }} 
-                      {% else %}
-                        
-            {% assign price = product.price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
-            {% assign render = product.price | money_without_currency | strip_html | plus: price %}
-            Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }}
-                      {% endif %}
-                    {% else %}
-                      {{ 'products.product.sold_out' | t }}
-                    {% endif %}
-    
-    
-          </span>
-    
-        </dd>
-      </div>
-    </xmp>
 
-    <h3>price__sale DIV Should be Replaced By this</h3>
-    
-    <xmp>
-    <div class="price__sale">
-        <dt>
-          <span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t }}</span>
-        </dt>
-        <dd>
-          <span class="nxb-exvat price-item price-item--sale" data-sale-price>
-           Exc-Vat {{ money_price }}
-          </span>
-                
-          <span  style="display:none;" class="nxb-invat price-item price-item--sale " data-sale-price>
-    
-            {% assign price = product.price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
-            {% assign render = product.price | money_without_currency | strip_html | plus: price %}
-            Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }} 
-    
-          </span> 
-    
-           <span class="price-item__label" aria-hidden="true">{{ 'products.product.on_sale' | t }}</span>
-        </dd>
-      </div>
-    
-    </xmp>
+    <pre><code class="html">
 
+        &lt;div class="price__regular"&gt;
+        <br/>
+        &lt;dt&gt;
+        <br/>
+        &lt;span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}&lt;/span&gt;
+        <br/>
+        &lt;/dt&gt;
+        <br/>
+        &lt;dd&gt;
+        <br/>
+        &lt;span class="nxb-exvat price-item price-item--regular" data-regular-price&gt;
+        <br/>
+                {% if available %}
+                <br/>
+                  {% if compare_at_price > price %}
+                  <br/>
+                  Exc-Vat {{ compare_at_price | money }}
+                  <br/>
+                  {% else %}
+                  <br/>
+                  Exc-Vat {{ money_price }}
+                  <br/>
+                  {% endif %}
+                  <br/>
+                {% else %}
+                <br/>
+                  {{ 'products.product.sold_out' | t }}
+                  <br/>
+                {% endif %}
+                <br/>
+                &lt;/span&gt;
+                <br/>
+                &lt;span  style="display:none;" class="nxb-invat price-item price-item--regular" data-sale-price&gt;
+                <br/>
+                {% if available %}
+                <br/>
+                          {% if compare_at_price > price %}
+                          <br/>
+                            
+                {% assign price = compare_at_price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
+                <br/>
+                {% assign render = compare_at_price | money_without_currency | strip_html | plus: price %}
+                <br/>
+                 Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }} 
+                 <br/>
+                          {% else %}
+                          <br/>
+                            
+                {% assign price = product.price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
+                <br/>
+                {% assign render = product.price | money_without_currency | strip_html | plus: price %}
+                <br/>
+                Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }}
+                <br/>
+                          {% endif %}
+                          <br/>
+                        {% else %}
+                        <br/>
+                          {{ 'products.product.sold_out' | t }}
+                          <br/>
+                        {% endif %}
+                        <br/>
         
+                        <br/>
+                        &lt;/span&gt;
+                        <br/>
+                        &lt;/dd&gt;
+                        <br/>
+                        &lt;/div&gt;
+        </code></pre>
+      
+    
+        <h5 class="center">price__sale DIV Should be Replaced By this</h5>
+    
+    <pre><code>
+    
+        &lt;div class="price__sale"&gt;
+        <br/>
+        &lt;dt&gt;
+        <br/>
+        &lt;span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t &lt;/span&gt;
+        <br/>
+        &lt;/dt&gt;
+        <br/>
+        &lt;dd&gt;
+        <br/>
+        &lt;span class="nxb-exvat price-item price-item--sale" data-sale-price&gt;
+        <br/>
+           Exc-Vat {{ money_price }}
+           <br/>
+           &lt;/span&gt;
+           <br/>
+           &lt;span  style="display:none;" class="nxb-invat price-item price-item--sale " data-sale-price&gt;
+           <br/>
+            {% assign price = product.price | money_without_currency | strip_html | times: shop.metafields.commerce_plugin.vat %}
+            <br/>
+            {% assign render = product.price | money_without_currency | strip_html | plus: price %}
+            <br/>
+            Inc-Vat {{ shop.metafields.commerce_plugin.vat-currency  | append: render  }} 
+            <br/>
+    
+            &lt;/span&gt; 
+            <br/>
+            &lt;span class="price-item__label" aria-hidden="true"&gt; {{ 'products.product.on_sale' | t }}&lt;/span&gt; 
+            <br/>
+            &lt;/dd&gt;
+            <br/>
+            &lt;/div&gt;
+            <br/>
+    
+          </code></pre>
+<br/>
+<br/>
+<div class="panel callout radius" style="border-color: #ffc107;    background: #ffc107;">
+<p class="left-align"><strong>Note:</strong> This extension is only Tested for Debut Theme by Shopify and Themes That are Inherited By Debut Theme</p>
+</div>
+<br/>
+<br/>
+</div>
+</div>
+        <script>
+        
+
+$(function(){
+  hljs.configure({useBR: true});
+  
+$('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+
+        </script>
