@@ -200,3 +200,15 @@ ls
 sudo nano index.ejs 
 cd ../
 node app.js
+pkill -f node
+sudo nano app.js
+cd views
+ls
+sudo nano index.ejs
+cd ../
+ls
+node app.js
+sudo nano app.js
+node app.js
+sudo nano app.js
+node app.js

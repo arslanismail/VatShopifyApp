@@ -61,33 +61,6 @@ app.use(function(req, res, next) {
 // The template in views/embedded_app_redirect.ejs is rendered 
 
 
-app.get('/render',function(req,res){
-
-    console.log('rendering');
-});
-app.post('/webhooks/orders/create',(req, res) => {
-    console.log('🎉 We got an order!',res);
-    res.sendStatus(200)
-    // // we'll compare the hmac to our own hash
-    const hmac = req.get('X-Shopify-Hmac-Sha256')
-  
-    // create a hash using the body and our key
-    // const hash = crypto
-    //   .createHmac('sha256','46d14f99bb8d72dcaddb9ee8c5d25dc591c4a65574d0d3c36f9f17a412aac6e6')
-    //   .update(req.body, 'utf8', 'hex')
-    //   .digest('base64')
-  
-    // // Compare our hash to Shopify's hash
-    // if (hash === hmac) {
-    //   // It's a match! All good
-    //   console.log('Phew, it came from Shopifify!')
-    //   res.sendStatus(200)
-    // } else {
-    //   // No match! This request didn't originate from Shopify
-    //   console.log('Danger! Not from Shopify!')
-    //   res.sendStatus(403)
-    // }
-  });
 
 app.get('/shopify_auth', function(req, res) {
     if (req.query.shop) {
@@ -140,16 +113,12 @@ app.get('/install', function(req, res) {
     });
 })
 
-// Renders content for a modal
-app.get('/modal_content', function(req, res) {
-    res.render('modal_content', {
-        title: 'Embedded App Modal'
-    });
-})
+
 
 // The home page, checks if we have the access token, if not we are redirected to the install page
 // This check should probably be done on every page, and should be handled by a middleware
 app.get('/', function(req, res) {
+try{
     if (req.session.access_token) {
           
           request.get({
@@ -159,8 +128,9 @@ app.get('/', function(req, res) {
             }
         }, 
           function(error, response, body){
-            if(error)
+            if(error){
                 return next(error);
+            }
             body = JSON.parse(body);
             if(body.script_tags.length<1){
                  
@@ -185,31 +155,18 @@ app.get('/', function(req, res) {
     } else {
         res.redirect('/install');
     }
+}catch(Exception){
+console.log('Exception has occured');
+}
+
 })
 
 
-// app.get('/scripts', function(req, res) {
-    
-//     request.post({
-//         url: 'https://' + req.session.shop + '/admin/script_tags.json',
-//         json: {
-//             "script_tag": {
-//               "event":"onload",
-//               "src":"https://73bbebd2.ngrok.io/custom20.js"
-//             }
-//           },
-//         headers: {
-//             'X-Shopify-Access-Token': req.session.access_token
-//         }
-//     }, function(error, response, body){
-//         if(error)
-//             return next(error);
-        
-//         res.send(body);
-//     })  
-// })
+
 
 app.get('/integrate',function(req,res){
+
+try{
   var getcountry;
   var CountryArray=[];
   var getTax;
@@ -220,8 +177,9 @@ app.get('/integrate',function(req,res){
             }
 },function(error,response,body)
 {
-    if(error)
-    return next(error);
+    if(error){
+      return next(error);
+    }
     body = JSON.parse(body);
     getcountry=body.shop.country_name;
     getCurrency=body.shop.money_format;
@@ -243,8 +201,9 @@ app.get('/integrate',function(req,res){
             'X-Shopify-Access-Token': req.session.access_token
         }
     }, function(error, response, body){
-        if(error)
+        if(error){
             return next(error);
+         }
     })  
 
 
@@ -260,7 +219,9 @@ app.get('/integrate',function(req,res){
 },function(error,response,body)
 {
  if(error)
- return next(error);
+  {
+    return next(error);
+  }
   body = JSON.parse(body);
   if(body.countries[0].tax){
     //   res.send(body.countries[0].tax);
@@ -281,9 +242,9 @@ app.get('/integrate',function(req,res){
             'X-Shopify-Access-Token': req.session.access_token
         }
     }, function(error, response, body){
-        if(error)
+        if(error){
             return next(error);
-        
+        }
         
         request.post({
             url: 'https://' + req.session.shop + '/admin/script_tags.json',
@@ -297,9 +258,9 @@ app.get('/integrate',function(req,res){
                 'X-Shopify-Access-Token': req.session.access_token
             }
         }, function(error, response, body){
-            if(error)
+            if(error){
                 return next(error);
-            
+            }
             res.render('response');
         })  
     })  
@@ -309,6 +270,11 @@ app.get('/integrate',function(req,res){
   }
 
 });
+
+}catch(Exception){
+
+console.log('Exception Has Occured while Integrating')
+}
 });
 
 function verifyRequest(req, res, next) {

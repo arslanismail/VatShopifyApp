@@ -7,6 +7,7 @@ var vatApp=(function(){
             theme.Product.prototype._updatePrice = function(){
             var taxprice=$('#commerce-vat-tax-rate').text().trim();
             var storeCurrency=$('#commerce-vat-store-currency').html();
+		
 
         //  Wait for Nano mili Second our DOM Manipulation Runs After the theme Manipulation
           setTimeout(function()
