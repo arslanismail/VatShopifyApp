@@ -132,7 +132,8 @@ try{
                 return next(error);
             }
             body = JSON.parse(body);
-            if(body.script_tags.length<1){
+            
+            if(body.script_tags=== undefined || body.script_tags.length<1){
                  
                    res.render('index', {
                     title: 'Home',
@@ -145,6 +146,7 @@ try{
 
             res.render('response');
             }
+           
             
             // res.render('response');
         })  

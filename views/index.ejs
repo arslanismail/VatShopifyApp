@@ -19,12 +19,19 @@
 		<p>* You can Contact Our Support Team our support team will integrate the App for you(Free) in case of any issue </p>
 
 		<div class="text-right">
-		<a href="/integrate" class="button large text-right">Integrate App</a>
+		<a id='integrate' onclick="disableIntegrateBtn()" href="/integrate" class="button large text-right">Integrate App</a>
 	   </div>
 
 </div>
 
-	
+<script>
+   function disableIntegrateBtn(){
+   var integrateBtn=document.getElementById('integrate');
+   integrateBtn.style.visibility = 'hidden';
+}
+
+</script>	
 </body>
+
 </html>
 

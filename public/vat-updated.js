@@ -6,8 +6,13 @@ var vatApp=(function(){
         {
             theme.Product.prototype._updatePrice = function(){
             var taxprice=$('#commerce-vat-tax-rate').text().trim();
+            if(taxprice && !taxprice.empty()){
+                taxprice=1;
+            }
             var storeCurrency=$('#commerce-vat-store-currency').html();
-		
+            if(storeCurrency && storeCurrency.empty()){
+                storeCurrency='$';
+            }
 
         //  Wait for Nano mili Second our DOM Manipulation Runs After the theme Manipulation
           setTimeout(function()
@@ -15,14 +20,19 @@ var vatApp=(function(){
             var regPriceCondtionExvat=$.trim($('.price__regular .nxb-exvat').html());
             
             regPriceCondtionExvat=parseInt(regPriceCondtionExvat.replace(/Exc-Vat Rs./gi,"")) + (parseInt(regPriceCondtionExvat.replace(/Exc-Vat Rs./gi,""))*taxprice);
+
             if(regPriceCondtionExvat){
+
                 regPriceCondtionExvat=parseFloat(regPriceCondtionExvat).toFixed(2);
                 $('.price__regular .nxb-invat').empty().append('Inc-Vat '+storeCurrency+''+regPriceCondtionExvat);
+
             }
             else
             {
                 var regPriceCondtionExvat=$.trim($('.price__regular .nxb-exvat').html());
+
                 regPriceCondtionExvat=parseInt(regPriceCondtionExvat.replace(/Exc-Vat /gi,"")) + (parseInt(regPriceCondtionExvat.replace(/Exc-Vat /gi,""))*taxprice);
+
                 if(regPriceCondtionExvat){
                     $('.price__regular .nxb-invat').empty().append('Inc-Vat Rs.'+regPriceCondtionExvat);
                 }else{
@@ -80,12 +90,21 @@ var vatApp=(function(){
         themeHeaderPostion:function()
         {
             var returnNavInHeader=$("header").find('.site-header__icons-wrapper');
+            if(returnNavInHeader){
             return returnNavInHeader;
+            }else{
+                console.log("can not find where to put theme header")
+            }
         },
         appendVatBtnInHeader:function(){
             var AppendHtml=this.themeHeaderPostion();
             var toAddinHeader=this.vatSelectInput();
-            AppendHtml.append(toAddinHeader);
+            if(AppendHtml && toAddinHeader){
+                AppendHtml.append(toAddinHeader);
+            }else{
+                console.log("Can't Append Header");
+            }
+            
         },
         runProcess:function()
         {
@@ -93,24 +112,34 @@ var vatApp=(function(){
             var hideprice=$('.nxb-exvat');  
             var selectedVal=$("#vatid").val();
            if(selectedVal=="inc"){
+               if(typeof(hideprice)=='object'){
                $.each(hideprice,function(index){
-                   
                    hideprice[index].style.display = "none";
                    try{
                    ele[index].style.display = "block";
                    }catch(exception){
                    }
                });
+            }else{
+                
+                console.log('Products Collection is Not Array type')
+            }
+ 
            }
            else if(selectedVal=="exc")
            {
+            if(typeof(hideprice)=='object'){
             $.each(hideprice,function(index){
                 hideprice[index].style.display = "block";
                 try{
                    ele[index].style.display = "none";
                    }catch(exception){
+                       console.log('Exception occured near line 136 ');
                    }
             });
+           }else{
+               console.log('Products Collection is Not Array type')
+           }
 
            }
            else{
@@ -118,11 +147,16 @@ var vatApp=(function(){
                 hideprice[index].style.display = "block";
                 try{
                 ele[index].style.display = "inline";
-                }catch(exception){}
+                }catch(exception){cosole.log(exception)}
                 //  To Add  Ex - vat infront of the span
                 var toAddExvat=$('.nxb-exvat')[index].innerHTML.trim();
+                if(toAddExvat){
                 toAddExvat=toAddExvat.replace(/Rs./gi,"");
                 $('.nxb-exvat')[index].innerHTML=''+toAddExvat;
+                }else{
+                    console.log('on line 155 nxb-exvat class not found')
+                }
+                
             });
            }
         },
