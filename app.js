@@ -133,7 +133,7 @@ try{
             }
             body = JSON.parse(body);
             
-            if(body.script_tags=== undefined || body.script_tags.length<1){
+            if(!body.script_tags === undefined || body.script_tags.length<1){
                  
                    res.render('index', {
                     title: 'Home',
@@ -225,7 +225,8 @@ try{
     return next(error);
   }
   body = JSON.parse(body);
-  if(body.countries[0].tax){
+  
+  if(!body.countries[0].tax === undefined || body.countries[0].tax){
     //   res.send(body.countries[0].tax);
 
       getTax= body.countries[0].tax;
